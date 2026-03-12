@@ -1,0 +1,149 @@
+<template>
+<!--registation-->
+    <lightning-card title="Patient Registration">
+
+        <div class="slds-p-around_medium">
+
+            <lightning-input
+                label="Name"
+                value={name}
+                onchange={handleName}>
+            </lightning-input>
+
+            <lightning-input
+                type="number"
+                label="Age"
+                value={age}
+                onchange={handleAge}>
+            </lightning-input>
+
+            <lightning-combobox
+                label="Gender"
+                value={gender}
+                options={genderOptions}
+                onchange={handleGender}>
+            </lightning-combobox>
+
+            <lightning-combobox
+                label="Blood Group"
+                value={bloodGroup}
+                options={bloodOptions}
+                onchange={handleBlood}>
+            </lightning-combobox>
+
+            <lightning-input
+                label="Contact Number"
+                value={contact}
+                onchange={handleContact}>
+            </lightning-input>
+
+            <lightning-combobox
+                label="Department"
+                value={department}
+                options={departmentOptions}
+                onchange={handleDepartment}>
+            </lightning-combobox>
+
+            <br>
+
+            <lightning-button
+                label="Register Patient"
+                variant="brand"
+                onclick={handleRegister}>
+            </lightning-button>
+
+            <template if:true={successMessage}>
+                <p class="slds-text-color_success slds-m-top_small">
+                    {successMessage}
+                </p>
+            </template>
+
+            <template if:true={errorMessage}>
+                <p class="slds-text-color_error slds-m-top_small">
+                    {errorMessage}
+                </p>
+            </template>
+
+        </div>
+
+</lightning-card>
+<lightning-card title="Patient Triage">
+    <template for:each={triagePatients} for:item="patient">
+<div key={patient.Id} class="slds-card slds-m-around_small">
+
+
+
+<p>{patient.Name}</p>
+
+<lightning-combobox
+data-id={patient.Id}
+label="Severity"
+options={severityOptions}
+onchange={handleSeverityChange}>
+</lightning-combobox>
+
+
+<lightning-combobox
+data-id={patient.Id}
+label="ward"
+options={wardOptions}
+onchange={handleWardChange}>
+</lightning-combobox>
+
+
+
+<lightning-button
+label="Confirm"
+data-id={patient.Id}
+onclick={handleTriage}>
+</lightning-button>
+
+
+
+</div>
+</template>
+</lightning-card>
+<lightning-card title="Active Patients">
+
+<div class="slds-p-around_medium">
+
+<table class="slds-table slds-table_cell-buffer slds-table_bordered">
+
+<thead>
+<tr>
+<th>Patient ID</th>
+<th>Name</th>
+<th>Ward</th>
+<th>Severity</th>
+<th>Contact</th>
+</tr>
+</thead>
+
+<tbody>
+
+<template for:each={activePatients} for:item="patient">
+
+<tr key={patient.Id}>
+
+<td>{patient.Patient_ID__c}</td>
+
+<td>{patient.Name}</td>
+
+<td>{patient.ward__c}</td>
+
+<td>{patient.Severity__c}</td>
+
+<td>{patient.Contact__c}</td>
+
+</tr>
+
+</template>
+
+</tbody>
+
+</table>
+
+</div>
+
+</lightning-card>
+</template>
